@@ -1,0 +1,15 @@
+---
+- hosts: "local"
+  gather_facts: yes
+  pre-tasks:
+   - name: Print start message
+     shell: echo "I am from vagrant machine"
+          
+  roles:
+   - { role: "setup-haproxy", when: service = "haproxy" }
+   - { role: "setup-web-app", when: service = "web-app" }
+   - { role: "setup-db", when: service = "db" }
+   
+   post-tasks:
+     - name: Print finish message
+       shell: "Setting up env completed"

@@ -1,0 +1,4 @@
+---
+- name: Print message
+  shell: echo "Setting up {{service}}"
+  
