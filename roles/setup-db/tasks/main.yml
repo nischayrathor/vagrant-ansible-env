@@ -1,7 +1,4 @@
 ---
-- name: Print message
-  shell: echo "Setting up DataBase"
-
 - name: Installing mySQL Server
   apt: name="mysql-server"
   
