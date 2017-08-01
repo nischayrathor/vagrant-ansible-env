@@ -2,11 +2,11 @@
 - name: install haproxy
   apt: name=haproxy state=present
 
-- name: start and enable haproxy
-  service: name=haproxy state=started enabled=yes
+- name: Setup /etc/default/haproxy file
+  template: src=templates/haproxy-default dest=/etc/default/haproxy
 
 - name: Update HAProxy config
-  template: src=templates/haproxy_template.cfg dest=/etc/haproxy/haproxy.cfg backup=yes
+  template: src=templates/haproxy_template.cfg dest=/etc/haproxy/haproxy.cfg
 
-- name: reload haproxy
-  service: name=haproxy state=reloaded enabled=yes
+- name: start and enable haproxy
+  service: name=haproxy state=started enabled=yes

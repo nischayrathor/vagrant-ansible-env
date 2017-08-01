@@ -2,3 +2,5 @@
 - name: Print message
   shell: echo "Setting up web application stack"
   
+- name: install Nginx Server
+  apt: name=nginx state=present
