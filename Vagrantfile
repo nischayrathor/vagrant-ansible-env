@@ -33,7 +33,7 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "setup-db.yml"
     end
     db.vm.provider :virtualbox do |v|
-      v.customize ["modifyvm", :id, "--memory", 256]
+      v.customize ["modifyvm", :id, "--memory", 512]
       v.customize ["modifyvm", :id, "--name", "db"]
     end
   end

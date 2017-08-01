@@ -1,6 +1,26 @@
 ---
-- name: Installing mySQL Server
-  apt: name="mysql-server"
-  
-- name: Start the MySQL service
-  service: name=mysql stat=started enabled=true
+- name: Install MySQL server
+  apt: name={{item}} state=latest
+  ignore_errors: yes
+  with_items:
+    - mysql-server
+    - python-mysqldb
+
+- name: start and enable Mysql server
+  service: name=mysqld state=started enabled=yes
+  ignore_errors: yes
+
+- name: Create the Drupal database
+  mysql_db: db={{item}} state=present
+  ignore_errors: yes
+  with_items:
+    - app_one_db
+    - app_two_db
+
+- name: Create the application users
+  mysql_user: >
+    name=app
+    password=app_password
+    priv=app_one_db.*:ALL/app_two_db.*:ALL
+    host=localhost
+  ignore_errors: yes

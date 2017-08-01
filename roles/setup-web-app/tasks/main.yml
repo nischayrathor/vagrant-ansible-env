@@ -1,3 +1,27 @@
 ---
-- name: install Nginx Server
-  apt: name=nginx state=present
+- name: Install Nginx server
+  apt: name=nginx state=latest
+  
+- name: start and enable Nginx server
+  service: name=nnginx state=started enabled=yes
+  
+- name: Setup Nginx server configuration
+  template: src=templates/haproxy_template.cfg dest=/etc/haproxy/haproxy.cfg
+    
+- name: Create Dir for SimpleHTTPServer
+  file: path={{item}} state=directory
+  with_items:
+    - /opt/app1
+    - /opt/app2
+
+- name: Copy simple index html file to app directory
+  template: {{item.src}} dest={{item.dest}}
+  with_items:
+    - { src: 'templates/app1.html', dest: '/opt/app1' }
+    - { src: 'templates/app2.html', dest: '/opt/app2' }
+    
+- name: Start SimpleHTTPServer
+  shell: cd {{item.path}}; nohup python -mSimpleHTTPServer {{item.port}} </dev/null >/dev/null 2>&1 &
+  with_items:
+    - { path: '/opt/app1', port: "8080" }
+    - { path: '/opt/app2', port: "8090" }

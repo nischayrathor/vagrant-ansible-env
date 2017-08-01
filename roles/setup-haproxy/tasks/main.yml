@@ -1,4 +1,7 @@
 ---
+- name: Installing HAproxy
+  apt: name=haproxy state=latest
+
 - name: Setup /etc/default/haproxy file
   template: src=templates/haproxy-default dest=/etc/default/haproxy
 
