@@ -1,7 +1,9 @@
 ---
-- hosts: "local"
+- hosts: all
   gather_facts: yes
-  pre-tasks:
+  become: yes
+  become_user: root
+  pre_tasks:
    - name: Print start message
      shell: echo "I am from vagrant machine"
           
@@ -10,6 +12,6 @@
    - { role: "setup-web-app", when: service = "web-app" }
    - { role: "setup-db", when: service = "db" }
    
-   post-tasks:
-     - name: Print finish message
-       shell: "Setting up env completed"
+  post_tasks:
+   - name: Print finish message
+     shell: "Setting up env completed"

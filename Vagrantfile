@@ -1,4 +1,5 @@
 Vagrant.configure("2") do |config|
+  config.vm.provider "virtualbox"
   config.vm.box = "ubuntu/trusty64"
   config.vm.define "haproxy"
   config.vm.define "web-application"

@@ -1,3 +1,5 @@
-## Running Enviroment
-1. Setup Virtualbox and Vagrant
-2. Starting enviroment - vagrant up
+# Running Environment
+1. Setup Virtualbox and Vagrant on local machine
+2. Starting environment - vagrant up
+
+## We are using ansible provisioner to setup machines and services
