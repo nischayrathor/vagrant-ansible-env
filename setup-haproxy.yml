@@ -11,9 +11,7 @@
      apt: update_cache=yes cache_valid_time=3600
           
   roles:
-   - { role: "setup-haproxy", when: service == "haproxy" }
-   - { role: "setup-web-app", when: service == "web-app" }
-   - { role: "setup-db", when: service == "db" }
+   - { role: "setup-haproxy" }
    
   post_tasks:
    - name: Print finish message

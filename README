@@ -1,5 +1,6 @@
 # Running Environment
 1. Setup Virtualbox and Vagrant on local machine
 2. Starting environment - vagrant up
+3. Clean env - vagrant destroy -f
 
 ## We are using ansible provisioner to setup machines and services

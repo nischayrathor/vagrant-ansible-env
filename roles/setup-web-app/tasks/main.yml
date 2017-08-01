@@ -1,4 +1,4 @@
 ---
 - name: Print message
-  shell: echo "Setting up {{service}}"
+  shell: echo "Setting up web application stack"
   

@@ -1,3 +1,12 @@
 ---
-- name: Print message
-  shell: echo "Setting up {{service}}"
+- name: install haproxy
+  apt: name=haproxy state=present
+
+- name: start and enable haproxy
+  service: name=haproxy state=started enabled=yes
+
+- name: Update HAProxy config
+  template: src=templates/haproxy_template.cfg dest=/etc/haproxy/haproxy.cfg backup=yes
+
+- name: reload haproxy
+  service: name=haproxy state=reloaded enabled=yes
