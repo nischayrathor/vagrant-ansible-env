@@ -10,7 +10,7 @@
   service: name=mysqld state=started enabled=yes
   ignore_errors: yes
 
-- name: Create the Drupal database
+- name: Create the application databases
   mysql_db: db={{item}} state=present
   ignore_errors: yes
   with_items:

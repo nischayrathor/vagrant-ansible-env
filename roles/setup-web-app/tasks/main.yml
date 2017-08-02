@@ -3,11 +3,17 @@
   apt: name=nginx state=latest
   
 - name: start and enable Nginx server
-  service: name=nnginx state=started enabled=yes
+  service: name=nginx state=started enabled=yes
+
+- name: Remove default Nginx config
+  file: path=/etc/nginx/sites-enabled/default state=absent
+
+- name: Setup Nginx for routing to application
+  template: src=templates/nginxapp.conf dest=/etc/nginx/sites-enabled/app.conf
   
-- name: Setup Nginx server configuration
-  template: src=templates/haproxy_template.cfg dest=/etc/haproxy/haproxy.cfg
-    
+- name: Restart Nginx config
+  service: name=nginx state=restarted
+
 - name: Create Dir for SimpleHTTPServer
   file: path={{item}} state=directory
   with_items:
@@ -15,10 +21,10 @@
     - /opt/app2
 
 - name: Copy simple index html file to app directory
-  template: {{item.src}} dest={{item.dest}}
+  template: src={{item.src}} dest={{item.dest}}
   with_items:
-    - { src: 'templates/app1.html', dest: '/opt/app1' }
-    - { src: 'templates/app2.html', dest: '/opt/app2' }
+    - { src: 'templates/app1.html', dest: '/opt/app1/index.html' }
+    - { src: 'templates/app2.html', dest: '/opt/app2/index.html' }
     
 - name: Start SimpleHTTPServer
   shell: cd {{item.path}}; nohup python -mSimpleHTTPServer {{item.port}} </dev/null >/dev/null 2>&1 &
